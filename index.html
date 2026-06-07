@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitHub 每日早报</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;background:#f6f8fa;color:#1f2328;line-height:1.65;padding:24px}
+  .wrap{max-width:740px;margin:0 auto}
+  .head{text-align:center;margin-bottom:6px}
+  .kicker{color:#fb8500;font-weight:800;letter-spacing:3px;font-size:13px}
+  h1{font-size:28px;margin:6px 0}
+  .sub{color:#656d76;font-size:14px}
+  .tip{background:#fff8e6;border:1px solid #ffe08a;border-radius:10px;padding:12px 16px;font-size:14px;color:#7a5b00;margin:18px 0}
+  .bar{display:flex;justify-content:center;gap:10px;margin:16px 0 22px}
+  .bar button{border:1px solid #d0d7de;background:#fff;color:#1f2328;font-size:14px;font-weight:600;padding:7px 16px;border-radius:20px;cursor:pointer}
+  .bar button.active{background:#fb8500;color:#fff;border-color:#fb8500}
+  .card{position:relative;background:#fff;border:1px solid #d0d7de;border-radius:14px;padding:18px 20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .rank{display:inline-block;background:#fb8500;color:#fff;font-weight:800;width:28px;height:28px;line-height:28px;text-align:center;border-radius:50%;font-size:14px}
+  .cat{display:inline-block;background:#ddf4ff;color:#0969da;font-size:12px;font-weight:600;padding:2px 9px;border-radius:20px;margin-left:6px}
+  .fav{position:absolute;top:16px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;line-height:1;filter:grayscale(1);opacity:.45}
+  .fav.on{filter:none;opacity:1}
+  .name{font-size:19px;font-weight:700;color:#0969da;margin-top:8px}
+  .star{font-size:13px;color:#bf8700;font-weight:600;margin-left:6px}
+  .lang{font-size:12px;color:#656d76;margin-left:8px}
+  .desc{font-size:15px;margin:8px 0 4px;color:#3c424a}
+  .btn{display:inline-block;margin-top:12px;background:#0969da;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:8px 16px;border-radius:8px}
+  .empty{text-align:center;color:#8c959f;padding:40px 0}
+  .foot{text-align:center;color:#8c959f;font-size:12px;margin-top:22px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="kicker">☕ GITHUB 每日早报</div>
+    <h1>今天程序员都在追什么？</h1>
+    <div class="sub">2026 年 6 月 7 日 · 全球最火 10 个新项目（自动更新）</div>
+  </div>
+  <div class="tip">💡 这里每天自动更新「最近 7 天 GitHub 上涨粉最快的新项目」。点右上角 ⭐ 收藏你感兴趣的，点蓝色按钮直达项目主页。</div>
+  <div class="bar">
+    <button id="btnAll" class="active">📋 全部</button>
+    <button id="btnFav">⭐ 我的收藏 (<span id="favCount">0</span>)</button>
+  </div>
+  <div id="list">
+    <div class="card">
+      <button class="fav" data-name="goose" title="收藏">⭐</button>
+      <div><span class="rank">1</span><span class="cat">热门</span></div>
+      <div class="name">goose<span class="star">★ 2,168</span><span class="lang">Rust</span></div>
+      <div class="desc">Goose Swift proof-of-concept README</div>
+      <a class="btn" href="https://github.com/b-nnett/goose" target="_blank" rel="noopener">去 GitHub 看看 →</a>
+    </div>
+    <div class="card">
+      <button class="fav" data-name="skylight" title="收藏">⭐</button>
+      <div><span class="rank">2</span><span class="cat">好玩/硬件</span></div>
+      <div class="name">skylight<span class="star">★ 2,094</span><span class="lang">TypeScript</span></div>
+      <div class="desc">Project the aircraft passing overhead onto your ceiling in real time, from an RTL-SDR — with a live sky layer (sun, moon, stars, ISS) and where each plane is headed.</div>
+      <a class="btn" href="https://github.com/cpaczek/skylight" target="_blank" rel="noopener">去 GitHub 看看 →</a>
+    </div>
+    <div class="card">
+      <button class="fav" data-name="JoyAI-Echo" title="收藏">⭐</button>
+      <div><span class="rank">3</span><span class="cat">AI 智能</span></div>
+      <div class="name">JoyAI-Echo<span class="star">★ 735</span><span class="lang">Python</span></div>
+      <div class="desc">JoyAI-Echo: Pushing the Frontier of Long Audio-Visual Generation</div>
+      <a class="btn" href="https://github.com/jd-opensource/JoyAI-Echo" target="_blank" rel="noopener">去 GitHub 看看 →</a>
+    </div>
+    <div class="card">
+      <button class="fav" data-name="chokepoint-atlas" title="收藏">⭐</button>
+      <div><span class="rank">4</span><span class="cat">热门</span></div>
+      <div class="name">chokepoint-atlas<span class="star">★ 592</span><span class="lang">Python</span></div>
+      <div class="desc">（作者暂未填写项目介绍）</div>
+      <a class="btn" href="https://github.com/qiuqiubuchongle-cloud/chokepoint-atlas" target="_blank" rel="noopener">去 GitHub 看看 →</a>
+    </div>
+    <div class="card">
+      <button class="fav" data-name="TripoSplat" title="收藏">⭐</button>
+      <div><span class="rank">5</span><span class="cat">AI 智能</span></div>
+      <div class="name">TripoSplat<span class="star">★ 497</span><span class="lang">Python</span></div>
+      <div class="desc">TripoSplat converts a single 2D image into high-quality and variable number of 3D Gaussians, developed by TripoAI.</div>
+      <a class="btn" href="https://github.com/VAST-AI-Research/TripoSplat" target="_blank" rel="noopener">去 GitHub 看看 →</a>
+    </div>
+    <div class="card">
+      <button class="fav" data-name="sandboxes" title="收藏">⭐</button>
+      <div><span class="rank">6</span><span class="cat">AI 智能</span></div>
+      <div class="name">sandboxes<span class="star">★ 472</span><span class="lang">Go</span></div>
+      <div class="desc">Self-hosted dev sandboxes with preview URLs. One command. No Kubernetes, perfect for coding agents and Saas factories</div>
+      <a class="btn" href="https://github.com/tastyeffectco/sandboxes" target="_blank" rel="noopener">去 GitHub 看看 →</a>
+    </div>
+    <div class="card">
+      <button class="fav" data-name="reg-factory" title="收藏">⭐</button>
+      <div><span class="rank">7</span><span class="cat">热门</span></div>
+      <div class="name">reg-factory<span class="star">★ 457</span><span class="lang">Python</span></div>
+      <div class="desc">（作者暂未填写项目介绍）</div>
+      <a class="btn" href="https://github.com/tiantianGPU/reg-factory" target="_blank" rel="noopener">去 GitHub 看看 →</a>
+    </div>
+    <div class="card">
+      <button class="fav" data-name="xiaoer-videolab" title="收藏">⭐</button>
+      <div><span class="rank">8</span><span class="cat">图像/视觉</span></div>
+      <div class="name">xiaoer-videolab<span class="star">★ 455</span><span class="lang">JavaScript</span></div>
+      <div class="desc">One click on the toolbar grabs the current page's video into ~/Downloads — local yt-dlp daemon, 1800+ sites. 小耳抓视频：一键把当前页视频抓到本地。</div>
+      <a class="btn" href="https://github.com/Jane-xiaoer/xiaoer-videolab" target="_blank" rel="noopener">去 GitHub 看看 →</a>
+    </div>
+    <div class="card">
+      <button class="fav" data-name="Anima" title="收藏">⭐</button>
+      <div><span class="rank">9</span><span class="cat">AI 智能</span></div>
+      <div class="name">Anima<span class="star">★ 394</span><span class="lang">Python</span></div>
+      <div class="desc">Make Every Hardware Intelligent — an open-source Agent OS for hardware intelligence</div>
+      <a class="btn" href="https://github.com/Fullive-AI/Anima" target="_blank" rel="noopener">去 GitHub 看看 →</a>
+    </div>
+    <div class="card">
+      <button class="fav" data-name="vimhjkl" title="收藏">⭐</button>
+      <div><span class="rank">10</span><span class="cat">热门</span></div>
+      <div class="name">vimhjkl<span class="star">★ 386</span><span class="lang">Python</span></div>
+      <div class="desc">learn vim from your terminal with spaced repetition</div>
+      <a class="btn" href="https://github.com/S-Sigdel/vimhjkl" target="_blank" rel="noopener">去 GitHub 看看 →</a>
+    </div></div>
+  <div class="foot">数据：GitHub 官方 API · 每天自动更新 · Powered by Craft Agent</div>
+</div>
+<script>
+const KEY="ghdaily_favs";
+let favs=new Set(JSON.parse(localStorage.getItem(KEY)||"[]"));
+function save(){localStorage.setItem(KEY,JSON.stringify([...favs]));document.getElementById("favCount").textContent=favs.size;}
+function paint(){document.querySelectorAll(".fav").forEach(b=>{const on=favs.has(b.dataset.name);b.classList.toggle("on",on);});}
+function applyFilter(f){document.getElementById("btnAll").classList.toggle("active",f==="all");document.getElementById("btnFav").classList.toggle("active",f==="fav");document.querySelectorAll(".card").forEach(c=>{const n=c.querySelector(".fav").dataset.name;c.style.display=(f==="fav"&&!favs.has(n))?"none":"";});const vis=[...document.querySelectorAll(".card")].some(c=>c.style.display!=="none");let e=document.getElementById("empty");if(f==="fav"&&!vis){if(!e){e=document.createElement("div");e.id="empty";e.className="empty";e.innerHTML="还没有收藏的项目 ⭐<br>点卡片右上角的星星收藏吧";document.getElementById("list").appendChild(e);}}else if(e){e.remove();}}
+document.querySelectorAll(".fav").forEach(b=>b.onclick=()=>{const n=b.dataset.name;favs.has(n)?favs.delete(n):favs.add(n);save();paint();if(document.getElementById("btnFav").classList.contains("active"))applyFilter("fav");});
+document.getElementById("btnAll").onclick=()=>applyFilter("all");
+document.getElementById("btnFav").onclick=()=>applyFilter("fav");
+save();paint();
+</script>
+</body>
+</html>
