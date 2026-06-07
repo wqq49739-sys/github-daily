@@ -32,7 +32,23 @@ function guessCat(r) {
   return "热门";
 }
 
-const items = (json.items || []).map((r, i) => ({
+// 免费翻译：调用谷歌翻译公开接口（GitHub 云端服务器可直连，免费、无需密钥）
+async function toChinese(text) {
+  const t = (text || "").trim();
+  if (!t) return "";
+  if (/[一-鿿]/.test(t)) return t; // 已含中文则不翻
+  try {
+    const u = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=zh-CN&dt=t&q=${encodeURIComponent(t)}`;
+    const r = await fetch(u, { headers: { "User-Agent": "github-daily-bot" } });
+    const j = await r.json();
+    const zh = (j[0] || []).map((s) => s[0]).join("").trim();
+    return zh || t;
+  } catch (e) {
+    return t; // 翻译失败就退回原文，不影响出页
+  }
+}
+
+const raw = (json.items || []).map((r, i) => ({
   rank: i + 1,
   name: r.full_name.split("/")[1],
   full: r.full_name,
@@ -40,7 +56,12 @@ const items = (json.items || []).map((r, i) => ({
   stars: r.stargazers_count || 0,
   lang: r.language || "—",
   url: r.html_url,
-  desc: (r.description || "").trim() || "（作者暂未填写项目介绍）",
+  descEn: (r.description || "").trim(),
+}));
+
+const items = await Promise.all(raw.map(async (d) => {
+  const zh = await toChinese(d.descEn);
+  return { ...d, desc: zh || "（作者暂未填写项目介绍）", descEn: d.descEn };
 }));
 
 const esc = (s) => (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -51,6 +72,7 @@ const cards = items.map((d) => `
       <div><span class="rank">${d.rank}</span><span class="cat">${esc(d.cat)}</span></div>
       <div class="name">${esc(d.name)}<span class="star">★ ${d.stars.toLocaleString()}</span><span class="lang">${esc(d.lang)}</span></div>
       <div class="desc">${esc(d.desc)}</div>
+      ${d.descEn && d.descEn !== d.desc ? `<div class="descen">${esc(d.descEn)}</div>` : ""}
       <a class="btn" href="${esc(d.url)}" target="_blank" rel="noopener">去 GitHub 看看 →</a>
     </div>`).join("");
 
@@ -80,7 +102,8 @@ const html = `<!doctype html>
   .name{font-size:19px;font-weight:700;color:#0969da;margin-top:8px}
   .star{font-size:13px;color:#bf8700;font-weight:600;margin-left:6px}
   .lang{font-size:12px;color:#656d76;margin-left:8px}
-  .desc{font-size:15px;margin:8px 0 4px;color:#3c424a}
+  .desc{font-size:15px;margin:8px 0 2px;color:#3c424a}
+  .descen{font-size:12px;color:#a0a8b0;margin-bottom:4px}
   .btn{display:inline-block;margin-top:12px;background:#0969da;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:8px 16px;border-radius:8px}
   .empty{text-align:center;color:#8c959f;padding:40px 0}
   .foot{text-align:center;color:#8c959f;font-size:12px;margin-top:22px}
